@@ -9,9 +9,5 @@ public class IndexController extends Controller {
         render("/views/index.html");
     }
 
-    public void upload(){
-        UploadFile  uploadFile = getFile();
-        System.out.println(uploadFile.getFileName());
 
-    }
 }

@@ -9,6 +9,7 @@ public class Config extends JFinalConfig {
     @Override
     public void configConstant(Constants constants) {
         constants.setDevMode(true);
+
     }
 
     @Override
