@@ -8,6 +8,8 @@ import com.jfinal.template.Engine;
 public class Config extends JFinalConfig {
     @Override
     public void configConstant(Constants constants) {
+        // 开启对 jfinal web 项目组件 Controller、Interceptor、Validator 的注入
+        constants.setInjectDependency(true);
         constants.setDevMode(true);
 
     }

@@ -17,14 +17,29 @@
 <div class="layui-progress layui-progress-bar" lay-showPercent="yes" lay-filter="progressBar">
     <div class="layui-progress-bar layui-bg-red" lay-percent="0%"></div>
 </div>
+
+<form class="layui-form" >
+    <div class="layui-form-item proSelect">
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择框</label>
+            <div class="layui-input-block">
+                <select name="city" lay-verify="required" id="select">
+                    <option value=""></option>
+
+                </select>
+            </div>
+    <a class="layui-btn layui-btn-small" id="" onclick="">确定</a>
+</form>
+
 </body>
 
 <script>
 
-    layui.use(['upload','element'], function() {
+    layui.use(['upload','element','form'], function() {
         var $ = layui.jquery
             , upload = layui.upload
-            ,element = layui.element;
+            ,element = layui.element
+            ,form = layui.form;
         //选完文件后不自动上传
         upload.render({
             elem: '#upload'
@@ -38,11 +53,20 @@
                 element.progress('progressBar',percent  + '%');
         }
             , done: function (res) {
-                console.log(res.msg)
+                options = '';
+               for(option in res){
+                   options += "<option class='' value='" + res + "'>" + res + "</option>";
+
+               }
+               console.log(options)
+               $('#select').append(options)
             }
         });
 
     })
+
+
+
 
 
 </script>
