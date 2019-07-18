@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.apache.poi.ss.usermodel.Row.MissingCellPolicy.CREATE_NULL_AS_BLANK;
+
 public class ExcelService {
 
 /**
@@ -69,8 +71,9 @@ public class ExcelService {
             file.mkdir();//创建文件夹
         }
         Row headrow = sheet.getRow(0);
-        int num = 1;
+
         for (Map.Entry<String, ArrayList<Integer>> entry : rowByName.entrySet()) {
+            int num = 1;
             Workbook wb = new XSSFWorkbook();
             wb.createSheet();
             Sheet newSheet = wb.getSheetAt(0);
@@ -81,7 +84,7 @@ public class ExcelService {
                 copyRow(sheet.getRow((int) list.get(i)), newSheet.createRow(num));
                 num++;
             }
-            String filePath = path + filename + entry.getKey();
+            String filePath = path +'\\'+ filename + entry.getKey()+".xlsx";
             try (OutputStream outputStream = new FileOutputStream(filePath)) {
                 wb.write(outputStream);
             } catch (FileNotFoundException e) {
@@ -103,13 +106,34 @@ public class ExcelService {
 
     public static void copyRow(Row fromRow,Row distRow){
         for (int i = 0; i <fromRow.getLastCellNum() ; i++) {
-            copyCell(fromRow.getCell(i),distRow.getCell(i));
+            copyCell(fromRow.getCell(i),distRow.getCell(i,CREATE_NULL_AS_BLANK));
         }
 
     }
 
     public static void copyCell(Cell fromCell,Cell distCell){
-        distCell.setCellValue(fromCell.getStringCellValue());
+
+       if(fromCell.getCellType()==CellType.BLANK){
+           distCell.setBlank();
+       }
+       else if(fromCell.getCellType()==CellType.BOOLEAN){
+           distCell.setCellValue(fromCell.getBooleanCellValue());
+       }
+       else if(fromCell.getCellType()==CellType.NUMERIC){
+           if (DateUtil.isCellDateFormatted(fromCell)) {// 判断单元格是否属于日期格式
+               distCell.setCellValue(fromCell.getDateCellValue());
+           }
+           else{
+               distCell.setCellValue(fromCell.getNumericCellValue());
+           }
+       }
+       else  if(fromCell.getCellType()==CellType.STRING){
+           distCell.setCellValue(fromCell.getStringCellValue());
+       }
+       else if(fromCell.getCellType()==CellType.FORMULA){
+           distCell.setCellValue(fromCell.getCellFormula());
+       }
+
 
     }
 
