@@ -1,6 +1,7 @@
 package com.henry.exceldivide.service;
 
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
@@ -78,10 +79,10 @@ public class ExcelService {
             wb.createSheet();
             Sheet newSheet = wb.getSheetAt(0);
             Row title = newSheet.createRow(0);
-            copyRow(headrow, title);
+            copyRow(wb,headrow, title);
             ArrayList list = entry.getValue();
             for (int i = 0; i < list.size(); i++) {
-                copyRow(sheet.getRow((int) list.get(i)), newSheet.createRow(num));
+                copyRow(wb,sheet.getRow((int) list.get(i)), newSheet.createRow(num));
                 num++;
             }
             String filePath = path +'\\'+ filename + entry.getKey()+".xlsx";
@@ -104,15 +105,17 @@ public class ExcelService {
 
 
 
-    public static void copyRow(Row fromRow,Row distRow){
+    public static void copyRow(Workbook wb,Row fromRow,Row distRow){
         for (int i = 0; i <fromRow.getLastCellNum() ; i++) {
-            copyCell(fromRow.getCell(i),distRow.getCell(i,CREATE_NULL_AS_BLANK));
+            copyCell(wb,fromRow.getCell(i),distRow.getCell(i,CREATE_NULL_AS_BLANK));
         }
 
     }
 
-    public static void copyCell(Cell fromCell,Cell distCell){
-
+    public static void copyCell(Workbook wb,Cell fromCell,Cell distCell){
+        CellStyle  newCellStyle =wb.createCellStyle();
+        copyCellStyle(fromCell.getCellStyle(),newCellStyle);
+        distCell.setCellStyle(newCellStyle);
        if(fromCell.getCellType()==CellType.BLANK){
            distCell.setBlank();
        }
@@ -121,7 +124,7 @@ public class ExcelService {
        }
        else if(fromCell.getCellType()==CellType.NUMERIC){
            if (DateUtil.isCellDateFormatted(fromCell)) {// 判断单元格是否属于日期格式
-               distCell.setCellValue(fromCell.getDateCellValue());
+             distCell.setCellValue(fromCell.getDateCellValue());
            }
            else{
                distCell.setCellValue(fromCell.getNumericCellValue());
@@ -136,6 +139,40 @@ public class ExcelService {
 
 
     }
+
+
+    /**
+     * 复制单元格格式
+     * */
+    public static void copyCellStyle(CellStyle fromStyle,
+                                     CellStyle toStyle) {
+        toStyle.setAlignment(fromStyle.getAlignment());
+        //边框和边框颜色
+        toStyle.setBorderBottom(fromStyle.getBorderBottom());
+        toStyle.setBorderLeft(fromStyle.getBorderLeft());
+        toStyle.setBorderRight(fromStyle.getBorderRight());
+        toStyle.setBorderTop(fromStyle.getBorderTop());
+        toStyle.setTopBorderColor(fromStyle.getTopBorderColor());
+        toStyle.setBottomBorderColor(fromStyle.getBottomBorderColor());
+        toStyle.setRightBorderColor(fromStyle.getRightBorderColor());
+        toStyle.setLeftBorderColor(fromStyle.getLeftBorderColor());
+
+        //背景和前景
+        toStyle.setFillBackgroundColor(fromStyle.getFillBackgroundColor());
+        toStyle.setFillForegroundColor(fromStyle.getFillForegroundColor());
+
+        toStyle.setDataFormat(fromStyle.getDataFormat());
+        toStyle.setFillPattern(fromStyle.getFillPattern());
+//		toStyle.setFont(fromStyle.getFont(null));
+        toStyle.setHidden(fromStyle.getHidden());
+        toStyle.setIndention(fromStyle.getIndention());//首行缩进
+        toStyle.setLocked(fromStyle.getLocked());
+        toStyle.setRotation(fromStyle.getRotation());//旋转
+        toStyle.setVerticalAlignment(fromStyle.getVerticalAlignment());
+        toStyle.setWrapText(fromStyle.getWrapText());
+
+    }
+
 
 
 

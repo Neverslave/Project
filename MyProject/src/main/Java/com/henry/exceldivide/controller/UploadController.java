@@ -40,6 +40,7 @@ public class UploadController  extends Controller {
         excelBean.setSheetsNumber(excelService.getSheetNumber(wb));
         renderJson(list);
     }
+
     public void getTitle() throws Exception{
         InputStream ins = null;
         Workbook wb = null;
