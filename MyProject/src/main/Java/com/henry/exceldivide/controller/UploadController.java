@@ -38,6 +38,7 @@ public class UploadController  extends Controller {
         excelBean.setFilename(filename);
         excelBean.setPath(realpath);
         excelBean.setSheetsNumber(excelService.getSheetNumber(wb));
+        ins.close();
         renderJson(list);
     }
 

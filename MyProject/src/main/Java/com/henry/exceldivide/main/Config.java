@@ -1,7 +1,9 @@
 package com.henry.exceldivide.main;
 
+import com.henry.exceldivide.cron.MyTask;
 import com.henry.exceldivide.routes.FontRoutes;
 import com.jfinal.config.*;
+import com.jfinal.plugin.cron4j.Cron4jPlugin;
 import com.jfinal.server.undertow.UndertowServer;
 import com.jfinal.template.Engine;
 
@@ -25,7 +27,11 @@ public class Config extends JFinalConfig {
     }
 
     @Override
+    @SuppressWarnings("uncheck")
     public void configPlugin(Plugins plugins) {
+        Cron4jPlugin cp = new Cron4jPlugin();
+        cp.addTask("* * * * *", new MyTask());
+        plugins.add(cp);
 
     }
 

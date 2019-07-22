@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class TestExcel  {
     public static void main(String[] args) throws   Exception{
-        File file = new File("C:\\Users\\zhuwanqi\\Desktop\\天翼不出账.xlsx");
+        File file = new File("C:\\Users\\Administrator\\Desktop\\天翼不出账.xlsx");
         InputStream ins  = new FileInputStream(file);
         Workbook wb = WorkbookFactory.create(ins);
         Sheet sheet=wb.getSheetAt(0);
@@ -22,8 +22,9 @@ public class TestExcel  {
             System.out.println(list.get(i)+" "+ i);
 
         }
-        String path ="C:\\Users\\zhuwanqi\\Desktop\\1";
-        String path1 ="C:\\Users\\zhuwanqi\\Desktop\\123.zip";
+
+        String path ="C:\\Users\\Administrator\\Desktop\\1";
+        String path1 ="C:\\Users\\Administrator\\Desktop\\123.zip";
         Scanner sc  = new Scanner(System.in);
         int num = sc.nextInt();
       HashMap rowByname = excelService.getRowByName(sheet,num);
