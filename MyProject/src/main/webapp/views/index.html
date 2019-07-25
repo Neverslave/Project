@@ -5,32 +5,48 @@
     <title>excel拆分</title>
     <link rel="stylesheet" href="/assets/layui/layui.css">
     <script src="/assets/layui/layui.all.js"></script>
+    <script src="/assets/index.js"></script>
+    <link rel="stylesheet" href="/assets/index.css">
 </head>
 <body>
-<h1>excel 导入</h1>
-
-<div class="layui-upload">
-    <button type="button" class="layui-btn layui-btn-normal" id="upload">选择文件</button>
-    <button type="button" class="layui-btn" id="startUpload">开始上传</button>
+<div class="layui-container ">
+    <div class="layui-col-md9">
+    </div>
+    <div class="layui-col-md3">
+    </div>
 </div>
 
-<div class="layui-progress layui-progress-bar" lay-showPercent="yes" lay-filter="progressBar">
-    <div class="layui-progress-bar layui-bg-red" lay-percent="0%"></div>
-</div>
-
-<form class="layui-form" >
-    <div class="layui-form-item proSelect">
-        <div class="layui-form-item">
-            <label class="layui-form-label">选择框</label>
-            <div class="layui-input-block">
-                <select name="city" lay-verify="required" id="select">
-                    <option value="">请选择</option>
-
-                </select>
-            </div>
-    <a class="layui-btn layui-btn-small" id="" onclick="">确定</a>
+<div class="layui-container form-container">
+    <form class="layui-form">
+        <p class="describe-word">请选择excel文件</p>
+        <input class="layui-input" id="fileInput">
+        <div class="button-group">
+        <button class="layui-btn" id="upload">浏览</button>
+        <button class="layui-btn upload-button" id="startUpload">上传</button>
         </div>
-</form>
+    </form>
+</div>
+
+<div class="layui-container  container">
+    <div class="layui-tab">
+        <ul class="layui-tab-title">
+            <li class="layui-this show">sheet1</li>
+            <li>sheet2</li>
+            <li>sheet3</li>
+
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+
+
+            </div>
+            <div class="layui-tab-item">内容2</div>
+            <div class="layui-tab-item">内容3</div>
+
+         </div>
+    </div>
+</div>
+
 
 </body>
 
@@ -58,9 +74,8 @@
                 for (let i = 0; i <res.length ; i++) {
                     options += "<option class='' value='" + res[i] + "'>" + res[i] + "</option>";
                 }
-               console.log(options)
-               $('#select').append(options)
-
+               console.log(options);
+               $('#select').append(options);
                 form.render();
             }
         });

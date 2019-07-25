@@ -1,0 +1,39 @@
+.banner{
+    width: 40px;
+    position: relative;
+
+
+}
+
+.container{
+    width:50% ;
+    height: 305px;
+    position: relative;
+    margin:0 auto ;
+    top:230px;
+
+}
+.show{
+    background-color: #ffffff;
+}
+.hasSheet{
+    background-color: #00881b;
+}
+.form-container{
+    position: relative;
+    top: 150px;
+    width:30%;
+    margin:0 auto ;
+
+}
+.upload-button{
+    float: right;
+}
+.button-group{
+    margin-top: 10px;
+
+}
+body{
+    background:url("/assets/pic/background.png");
+
+}

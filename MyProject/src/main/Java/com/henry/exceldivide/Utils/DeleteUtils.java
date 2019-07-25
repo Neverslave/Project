@@ -107,7 +107,7 @@ public class DeleteUtils {
         try {
             delAllFile(folderPath); // 删除完里面所有内容
             String filePath = folderPath;
-            filePath = filePath.toString();
+            filePath = filePath;
             java.io.File myFilePath = new java.io.File(filePath);
             myFilePath.delete(); // 删除空文件夹
         } catch (Exception e) {
