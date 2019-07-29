@@ -44,8 +44,6 @@ public class UploadController  extends Controller {
         excelBean.setPath(realpath);
         excelBean.setSheetsNumber(excelService.getSheetNumber(wb));
         excelBean.setSheetTitles(sheetNameTitleList);
-
-
         //渲染
         renderJson(sheetNameTitleList);
         ins.close();
@@ -57,14 +55,7 @@ public class UploadController  extends Controller {
         InputStream ins = null;
         Workbook wb = null;
         String title = getPara("title");
-        ins = new FileInputStream(new File(excelBean.getPath()));
-        wb = WorkbookFactory.create(ins);
-        Sheet sheet =wb.getSheetAt(0);
-        int rowNumber = sheet.getLastRowNum();
-
-
-
-
+        renderJson("111","1111");
     }
 
 }
