@@ -44,11 +44,11 @@ public class UploadController  extends Controller {
         excelBean.setPath(realpath);
         excelBean.setSheetsNumber(excelService.getSheetNumber(wb));
         excelBean.setSheetTitles(sheetNameTitleList);
-        ins.close();
+
 
         //渲染
         renderJson(sheetNameTitleList);
-
+        ins.close();
     }
 
     /**获取标题数量*/

@@ -30,7 +30,7 @@ public class Config extends JFinalConfig {
     @SuppressWarnings("uncheck")
     public void configPlugin(Plugins plugins) {
         Cron4jPlugin cp = new Cron4jPlugin();
-        cp.addTask("* * * * *", new MyTask());
+        cp.addTask("12 * * * *", new MyTask());
         plugins.add(cp);
 
     }

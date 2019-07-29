@@ -13,11 +13,11 @@
     top:230px;
 
 }
-.show{
-    background-color: #ffffff;
+.layui-this{
+    background-color: #35a568;
 }
 .hasSheet{
-    background-color: #00881b;
+    background-color: #217346;
 }
 .form-container{
     position: relative;
@@ -36,4 +36,24 @@
 body{
     background:url("/assets/pic/background.png");
 
+}
+.select-item{
+
+    width:150px;
+}
+#input-sheet1,#input-sheet2,#input-sheet3{
+    width:300px;
+    margin-left: 0;
+
+}
+
+#select-sheet1,#select-sheet2,#select-sheet3{
+    width: 200px;
+
+}
+label{
+    width:170px;
+    height:30px;
+    margin-right: 110px;
+    display: block;
 }
