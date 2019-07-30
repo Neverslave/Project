@@ -47,6 +47,6 @@ public class Config extends JFinalConfig {
     }
 
     public static void main(String[] args) {
-        UndertowServer.start(Config.class,80,true);
+        UndertowServer.start(Config.class,8090,true);
     }
 }
