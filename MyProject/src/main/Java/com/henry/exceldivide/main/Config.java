@@ -13,6 +13,7 @@ public class Config extends JFinalConfig {
         // 开启对 jfinal web 项目组件 Controller、Interceptor、Validator 的注入
         constants.setInjectDependency(true);
         constants.setDevMode(true);
+        constants.setBaseDownloadPath("upload");
 
     }
 
@@ -30,7 +31,7 @@ public class Config extends JFinalConfig {
     @SuppressWarnings("uncheck")
     public void configPlugin(Plugins plugins) {
         Cron4jPlugin cp = new Cron4jPlugin();
-        cp.addTask("12 * * * *", new MyTask());
+        cp.addTask("0 0 * * *", new MyTask());
         plugins.add(cp);
 
     }

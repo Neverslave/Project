@@ -45,7 +45,7 @@ public class ExcelService {
 /***
  * 获取每个拆分内容对应的行号
  * */
-    public HashMap<String,List<Integer>>  getRowByName(@org.jetbrains.annotations.NotNull Sheet sheet, int index){
+    public HashMap<String,List<Integer>>  getRowByName( Sheet sheet, int index){
         HashMap<String,List<Integer> >rowByName = new HashMap<>();
         int numbers = sheet.getLastRowNum();
         for (int i = 1; i <numbers ; i++) {
@@ -84,7 +84,7 @@ public class ExcelService {
                 copyRow(wb,sheet.getRow((int) list.get(i)), newSheet.createRow(num));
                 num++;
             }
-            String filePath = path +'\\'+ filename + entry.getKey()+".xlsx";
+            String filePath = path +File.separator+ filename +"-"+ entry.getKey()+".xlsx";
             try (OutputStream outputStream = new FileOutputStream(filePath)) {
                 wb.write(outputStream);
             } catch (FileNotFoundException e) {

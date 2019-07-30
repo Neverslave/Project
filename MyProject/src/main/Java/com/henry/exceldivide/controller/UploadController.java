@@ -1,6 +1,7 @@
 package com.henry.exceldivide.controller;
 
 import com.henry.exceldivide.Bean.ExcelBean;
+import com.henry.exceldivide.Utils.ZipUtils;
 import com.henry.exceldivide.service.ExcelService;
 import com.jfinal.aop.Inject;
 import com.jfinal.core.Controller;
@@ -8,9 +9,8 @@ import com.jfinal.upload.UploadFile;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+
+import java.io.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +42,7 @@ public class UploadController  extends Controller {
         excelBean.setWorkbook(wb);
         excelBean.setFilename(filename);
         excelBean.setPath(realpath);
+        excelBean.setRealPath(path);
         excelBean.setSheetsNumber(excelService.getSheetNumber(wb));
         excelBean.setSheetTitles(sheetNameTitleList);
         //渲染
@@ -53,9 +54,32 @@ public class UploadController  extends Controller {
 
     public void getTitle() throws Exception{
         InputStream ins = null;
-        Workbook wb = null;
+        Workbook wb = excelBean.getWorkbook();
+        String path = excelBean.getPath().replace(".xlsx","");
         String title = getPara("title");
-        renderJson("111","1111");
+        String option = getPara("option");
+        String sheetName =getPara("sheetName");
+        String uploadPath = excelBean.getRealPath();
+        Sheet sheet=wb.getSheet(sheetName);
+         int i  =(int)(Math.random()*100);
+         //结果文件夹位置
+        String folder = path+i;
+       //获取标题列表
+        List list = excelService.getSheetTitle(sheet);
+        int num = list.indexOf(option);
+        HashMap rowByname = excelService.getRowByName(sheet,num);
+        excelService.createResult(rowByname,folder,sheet,title);
+        String zipPath = uploadPath+File.separator+title+".zip";
+        OutputStream out  =new FileOutputStream(zipPath);
+        ZipUtils.toZip(folder,out,true);
+        String ZipFile = title+".zip";
+        excelBean.setZipPath(ZipFile);
+        renderJson("res","压缩成功");
     }
 
+
+    public void  getZip(){
+        System.out.println(excelBean.getZipPath());
+        renderFile(excelBean.getZipPath());
+    }
 }
