@@ -31,7 +31,7 @@ public class UploadController  extends Controller {
         UploadFile uploadFile = getFile();
         String path =uploadFile.getUploadPath();
         String filename =uploadFile.getFileName();
-        String realpath = path+'\\'+filename;
+        String realpath = path+File.separator+filename;
         ins = new FileInputStream(new File(realpath));
         wb = WorkbookFactory.create(ins);
         int sheetName =excelService.getSheetNumber(wb);

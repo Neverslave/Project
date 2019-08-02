@@ -10,7 +10,7 @@
     height: 305px;
     position: relative;
     margin:0 auto ;
-    top:230px;
+    top:210px;
 
 }
 .layui-this{
@@ -60,6 +60,6 @@ label{
 
 #download-1,#download-2,#download-3{
     display: none;
-    margin-top: 50px;
+    margin-top: 20px;
 
 }

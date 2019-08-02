@@ -106,7 +106,11 @@ public class ExcelService {
 
     public static void copyRow(Workbook wb,Row fromRow,Row distRow){
         for (int i = 0; i <fromRow.getLastCellNum() ; i++) {
-            copyCell(wb,fromRow.getCell(i),distRow.getCell(i,CREATE_NULL_AS_BLANK));
+            Cell cell = fromRow.getCell(i);
+            if(fromRow.getCell(i)==null){
+                cell=fromRow.createCell(i);
+            }
+            copyCell(wb,cell,distRow.getCell(i,CREATE_NULL_AS_BLANK));
         }
 
     }
